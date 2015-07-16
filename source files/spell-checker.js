@@ -13,7 +13,7 @@ CodeMirror.defineMode("spell-checker", function(config, parserConfig) {
 		return req.responseText;
 	}
 	
-	var typo = new Typo("en_US", _readFile("en_US.aff"), _readFile("en_US.dic"), {
+	var typo = new Typo("en_US", _readFile("//cdn.jsdelivr.net/codemirror.spell-checker/latest/en_US.aff"), _readFile("//cdn.jsdelivr.net/codemirror.spell-checker/latest/en_US.dic"), {
 		platform: 'any'
 	});
 
