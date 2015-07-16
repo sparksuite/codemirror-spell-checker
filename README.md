@@ -9,8 +9,8 @@ Spell checking so simple, you can set up in 60 seconds. It will highlight any mi
 CodeMirror spell checker is available on [jsDelivr](http://TODO). *Please note, jsDelivr may take a few days to update to the latest release.*
 
 ```HTML
-<link rel="stylesheet" href="//cdn.jsdelivr.net/TODO/latest/spell-checker.min.css">
-<script src="//cdn.jsdelivr.net/TODO/latest/spell-checker.min.js"></script>
+<link rel="stylesheet" href="//cdn.jsdelivr.net/codemirror.spell-checker/latest/spell-checker.min.css">
+<script src="//cdn.jsdelivr.net/codemirror.spell-checker/latest/spell-checker.min.js"></script>
 ```
 
 Now load CodeMirror like normal. Set the mode to `"spell-checker"` and the backdrop mode to the appropriate mode. Be sure to load `overlay.min.js` if you don't already use it.
