@@ -3,7 +3,7 @@ Spell checking so simple, you can set up in 60 seconds. It will highlight any mi
 
 [Demo](http://nextstepwebs.github.io/codemirror-spell-checker/)
 
-![Screenshot](https://camo.githubusercontent.com/70091d3d9384954e2ba54657568556bdf6d63cbf/687474703a2f2f692e696d6775722e636f6d2f623968464846542e706e67)
+![Screenshot](http://i.imgur.com/7yb5Nne.png)
 
 ## Quick start
 CodeMirror spell checker is available on jsDelivr. *Please note, jsDelivr may take a few days to update to the latest release.*
