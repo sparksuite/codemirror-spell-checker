@@ -34,7 +34,7 @@ CodeMirror.fromTextArea(document.getElementById("textarea"), {
 That's it!
 
 ## Customizing
-You can customize the misspelled word appearance by updating the CSS. It applies the `.cm-spell-error` class to all misspelled words.
+You can customize the misspelled word appearance by updating the CSS. All misspelled words will have the `.cm-spell-error` class.
 
 ```CSS
 .CodeMirror .cm-spell-error{
