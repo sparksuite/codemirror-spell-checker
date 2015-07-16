@@ -13,7 +13,7 @@ CodeMirror spell checker is available on jsDelivr. *Please note, jsDelivr may ta
 <script src="//cdn.jsdelivr.net/TODO/latest/spell-checker.min.js"></script>
 ```
 
-Now load CodeMirror like normal. Set the mode to `"spell-checker"` and the backdrop mode to appropriate mode. Be sure to load `overlay.min.js` if you don't already use it.
+Now load CodeMirror like normal. Set the mode to `"spell-checker"` and the backdrop mode to the appropriate mode. Be sure to load `overlay.min.js` if you don't already use it.
 
 ```HTML
 <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.4.0/codemirror.min.js"></script>
