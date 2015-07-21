@@ -47,3 +47,11 @@ CodeMirror.defineMode("spell-checker", function(config, parserConfig) {
 
 	return CodeMirror.overlayMode(mode, overlay, true);
 });
+
+
+// Because some browsers don't support this functionality yet
+if(!String.prototype.includes) {
+	String.prototype.includes = function() {'use strict';
+		return String.prototype.indexOf.apply(this, arguments) !== -1;
+	};
+}
