@@ -14,7 +14,7 @@
 	"bugs": {
 		"url": "https://github.com/NextStepWebs/codemirror-spell-checker/issues"
 	},
-	"dependencies": {
+	"devDependencies": {
 		"gulp": "*",
 		"gulp-minify-css": "*",
 		"gulp-uglify": "*",
