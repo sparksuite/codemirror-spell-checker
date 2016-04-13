@@ -764,3 +764,5 @@ Typo.prototype = {
 		return correct(word);
 	}
 };
+
+module.exports = Typo;
