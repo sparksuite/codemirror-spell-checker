@@ -36,4 +36,9 @@ gulp.task('styles', function() {
 		.pipe(gulp.dest('dist'));
 });
 
-gulp.task('default', ['scripts', 'styles']);
+gulp.task('dictionaries', function() {
+	return gulp.src('./src/data/*.{dic,aff}')
+		.pipe(gulp.dest('dist/'));
+});
+
+gulp.task('default', ['scripts', 'styles', 'dictionaries']);
