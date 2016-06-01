@@ -22,7 +22,7 @@ gulp.task('scripts', function() {
 		.pipe(header(banner, {pkg: pkg}))
 		.pipe(concat('spell-checker.min.js'))
 		.pipe(gulp.dest('dist'))
-		.pipe(uglify())
+		// .pipe(uglify())
 		.pipe(header(banner, {pkg: pkg}))
 		.pipe(gulp.dest('dist'));
 });
@@ -36,4 +36,9 @@ gulp.task('styles', function() {
 		.pipe(gulp.dest('dist'));
 });
 
-gulp.task('default', ['scripts', 'styles']);
+gulp.task('dictionaries', function() {
+	return gulp.src('./src/data/*.{dic,aff}')
+		.pipe(gulp.dest('dist/'));
+});
+
+gulp.task('default', ['scripts', 'styles', 'dictionaries']);
