@@ -8,9 +8,14 @@ var typo;
 
 
 CodeMirror.defineMode("spell-checker", function(config, parserConfig) {
-	var cdn = config.dictionary.cdn
-		|| "https://cdn.jsdelivr.net/codemirror.spell-checker/latest/",
-		dictionary = config.dictionary.language || 'en_US';
+	var cdn = "https://cdn.jsdelivr.net/codemirror.spell-checker/latest/",
+		dictionary = "en_US";
+
+	// Check for dictionary settings
+	if (config.dictionary) {
+		cdn = config.dictionary.cdn || cdn,
+		dictionary = config.dictionary.language || dictionary;
+	}
 
 	// Load AFF/DIC data
 	if(!aff_loading){
