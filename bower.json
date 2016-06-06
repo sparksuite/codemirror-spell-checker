@@ -1,0 +1,27 @@
+{
+  "name": "codemirror-spell-checker",
+  "description": "Dead-simple spell checking in CodeMirror.",
+  "main": "gulpfile.js",
+  "authors": [
+    "Wes Cossick <http://www.WesCossick.com>"
+  ],
+  "license": "MIT",
+  "keywords": [
+    "codemirror",
+    "code",
+    "mirror",
+    "spell",
+    "checker",
+    "checking",
+    "spellchecker",
+    "javascript"
+  ],
+  "homepage": "https://github.com/NextStepWebs/codemirror-spell-checker",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
