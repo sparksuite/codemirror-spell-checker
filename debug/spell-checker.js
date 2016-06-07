@@ -2630,7 +2630,7 @@ CodeMirror.defineMode("spell-checker", function(config) {
 
 
 	// Define what separates a word
-	var rx_word = "!\"#$%&()*+,-./:;<=>?@[\\]^_`{|}~' ";
+	var rx_word = "!\"#$%&()*+,-./:;<=>?@[\\]^_`{|}~ ";
 
 
 	// Create the overlay and such
