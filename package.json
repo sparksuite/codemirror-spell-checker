@@ -4,7 +4,7 @@
 	"description": "Dead-simple spell checking in CodeMirror.",
 	"keywords": ["codemirror", "code", "mirror", "spell", "checker", "checking", "spellchecker", "spellchecking", "javascript"],
 	"homepage": "https://github.com/NextStepWebs/codemirror-spell-checker",
-	"main": "gulpfile.js",
+	"main": "./src/js/spell-checker.js",
 	"license": "MIT",
 	"company": "Next Step Webs, Inc.",
 	"author": {
@@ -19,7 +19,6 @@
 	},
 	"devDependencies": {
 		"browserify": "^11.2.0",
-		"browserify-shim": "^3.8.10",
 		"debug": "^2.2.0",
 		"eslint": "*",
 		"gulp": "*",
