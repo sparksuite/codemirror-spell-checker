@@ -1,46 +1,53 @@
 <!DOCTYPE html>
 <html lang="en-us">
-  <head>
+<head>
 	<meta charset="UTF-8">
-	<title>CodeMirror Spell Checker by NextStepWebs</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
+	
+	<title>CodeMirror Spell Checker by NextStepWebs</title>
+	
 	<link rel="stylesheet" type="text/css" href="stylesheets/normalize.css" media="screen">
 	<link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
 	<link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
 	<link rel="stylesheet" type="text/css" href="stylesheets/github-light.css" media="screen">
-  </head>
-  <body>
+</head>
+
+<body>
 	<section class="page-header">
-	  <h1 class="project-name">CodeMirror Spell Checker</h1>
-	  <h2 class="project-tagline">A dead-simple spell checker for CodeMirror</h2>
-	  <a href="https://github.com/NextStepWebs/codemirror-spell-checker" class="btn">View on GitHub</a>
-	  <a href="https://github.com/NextStepWebs/codemirror-spell-checker/zipball/master" class="btn">Download .zip</a>
-	  <a href="https://github.com/NextStepWebs/codemirror-spell-checker/tarball/master" class="btn">Download .tar.gz</a>
+		<h1 class="project-name">CodeMirror Spell Checker</h1>
+		<h2 class="project-tagline">A dead-simple spell checker for CodeMirror</h2>
+		
+		<a href="https://github.com/NextStepWebs/codemirror-spell-checker" class="btn">View on GitHub</a>
+		<a href="https://github.com/NextStepWebs/codemirror-spell-checker/zipball/master" class="btn">Download .zip</a>
+		<a href="https://github.com/NextStepWebs/codemirror-spell-checker/tarball/master" class="btn">Download .tar.gz</a>
 	</section>
 
 	<section class="main-content">
-	  <h1><a id="h1_demo1" class="anchor" href="#h1_demo1" aria-hidden="true"><span class="octicon octicon-link"></span></a>Demo</h1>
+		<h1><a id="h1_demo1" class="anchor" href="#h1_demo1" aria-hidden="true"><span class="octicon octicon-link"></span></a>Demo</h1>
 
-<textarea id="demo1">This is mispelled. But good thing we have spell check! Begin typing to run the spell checker...
+		<textarea id="demo1">This is mispelled. But good thing we have spell check! Begin typing to run the spell checker...
 
-# GFM
-The backdrop mode is [GitHub Flavored Markdown](https://help.github.com/articles/github-flavored-markdown/)</textarea>
+		# GFM
+		The backdrop mode is [GitHub Flavored Markdown](https://help.github.com/articles/github-flavored-markdown/)</textarea>
 
-	  <footer class="site-footer">
-		<span class="site-footer-credits"><a href="https://github.com/NextStepWebs/codemirror-spell-checker">CodeMirror Spell Checker</a> is created and maintained by <a href="https://github.com/NextStepWebs">Next Step Webs</a></span>
-	  </footer>
-
+		<footer class="site-footer">
+			<span class="site-footer-credits"><a href="https://github.com/NextStepWebs/codemirror-spell-checker">CodeMirror Spell Checker</a> is created and maintained by <a href="https://github.com/NextStepWebs">Next Step Webs</a></span>
+		</footer>
 	</section>
 
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.4.0/codemirror.min.css">
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.4.0/codemirror.min.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.4.0/mode/markdown/markdown.min.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.4.0/addon/mode/overlay.min.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.4.0/mode/gfm/gfm.min.js"></script>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.15.2/codemirror.min.css">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.15.2/codemirror.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.15.2/mode/markdown/markdown.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.15.2/addon/mode/overlay.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.15.2/mode/gfm/gfm.min.js"></script>
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/codemirror.spell-checker/latest/spell-checker.min.css">
 	<script src="https://cdn.jsdelivr.net/codemirror.spell-checker/latest/spell-checker.min.js"></script>
-	
+
 	<script>
+	CodeMirrorSpellChecker({
+		codeMirrorInstance: CodeMirror,
+	});
+	
 	CodeMirror.fromTextArea(document.getElementById("demo1"), {
 		mode: "spell-checker",
 		backdrop: "gfm",
@@ -49,5 +56,5 @@ The backdrop mode is [GitHub Flavored Markdown](https://help.github.com/articles
 		lineWrapping: true
 	});
 	</script>
-  </body>
+</body>
 </html>
