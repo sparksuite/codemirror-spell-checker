@@ -1,5 +1,5 @@
 /**
- * codemirror-spell-checker v1.1.1
+ * codemirror-spell-checker v1.2.0
  * Copyright Next Step Webs, Inc.
  * @link https://github.com/NextStepWebs/codemirror-spell-checker
  * @license MIT
