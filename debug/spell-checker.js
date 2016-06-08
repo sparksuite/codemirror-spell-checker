@@ -1,10 +1,10 @@
 /**
- * codemirror-spell-checker v1.1.1
+ * codemirror-spell-checker v1.2.0
  * Copyright Next Step Webs, Inc.
  * @link https://github.com/NextStepWebs/codemirror-spell-checker
  * @license MIT
  */
-(function(f){if(typeof exports==="object"&&typeof module!=="undefined"){module.exports=f()}else if(typeof define==="function"&&define.amd){define([],f)}else{var g;if(typeof window!=="undefined"){g=window}else if(typeof global!=="undefined"){g=global}else if(typeof self!=="undefined"){g=self}else{g=this}g.codemirrorSpellChecker = f()}})(function(){var define,module,exports;return (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
+(function(f){if(typeof exports==="object"&&typeof module!=="undefined"){module.exports=f()}else if(typeof define==="function"&&define.amd){define([],f)}else{var g;if(typeof window!=="undefined"){g=window}else if(typeof global!=="undefined"){g=global}else if(typeof self!=="undefined"){g=self}else{g=this}g.CodeMirrorSpellChecker = f()}})(function(){var define,module,exports;return (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 
 },{}],2:[function(require,module,exports){
 (function (global){
@@ -2570,7 +2570,6 @@ if (typeof module !== 'undefined') {
 }
 }).call(this,require("buffer").Buffer,"/node_modules\\typo-js")
 },{"buffer":2,"fs":1}],7:[function(require,module,exports){
-/* globals CodeMirror */
 // Use strict mode (https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Strict_mode)
 "use strict";
 
@@ -2579,97 +2578,116 @@ if (typeof module !== 'undefined') {
 var Typo = require("typo-js");
 
 
-// Initialize data globally to reduce memory consumption
-var num_loaded = 0;
-var aff_loading = false;
-var dic_loading = false;
-var aff_data = "";
-var dic_data = "";
-var typo;
+// Create function
+function CodeMirrorSpellChecker(options) {
+	// Initialize
+	options = options || {};
 
 
-CodeMirror.defineMode("spell-checker", function(config) {
-	// Load AFF/DIC data
-	if(!aff_loading) {
-		aff_loading = true;
-		var xhr_aff = new XMLHttpRequest();
-		xhr_aff.open("GET", "https://cdn.jsdelivr.net/codemirror.spell-checker/latest/en_US.aff", true);
-		xhr_aff.onload = function() {
-			if(xhr_aff.readyState === 4 && xhr_aff.status === 200) {
-				aff_data = xhr_aff.responseText;
-				num_loaded++;
-
-				if(num_loaded == 2) {
-					typo = new Typo("en_US", aff_data, dic_data, {
-						platform: "any"
-					});
-				}
-			}
-		};
-		xhr_aff.send(null);
-	}
-
-	if(!dic_loading) {
-		dic_loading = true;
-		var xhr_dic = new XMLHttpRequest();
-		xhr_dic.open("GET", "https://cdn.jsdelivr.net/codemirror.spell-checker/latest/en_US.dic", true);
-		xhr_dic.onload = function() {
-			if(xhr_dic.readyState === 4 && xhr_dic.status === 200) {
-				dic_data = xhr_dic.responseText;
-				num_loaded++;
-
-				if(num_loaded == 2) {
-					typo = new Typo("en_US", aff_data, dic_data, {
-						platform: "any"
-					});
-				}
-			}
-		};
-		xhr_dic.send(null);
+	// Verify
+	if(typeof options.codeMirrorInstance !== "function" || typeof options.codeMirrorInstance.defineMode !== "function") {
+		console.log("CodeMirror Spell Checker: You must provide an instance of CodeMirror via the option `codeMirrorInstance`");
+		return;
 	}
 
 
-	// Define what separates a word
-	var rx_word = "!\"#$%&()*+,-./:;<=>?@[\\]^_`{|}~ ";
+	// Because some browsers don't support this functionality yet
+	if(!String.prototype.includes) {
+		String.prototype.includes = function() {
+			"use strict";
+			return String.prototype.indexOf.apply(this, arguments) !== -1;
+		};
+	}
 
 
-	// Create the overlay and such
-	var overlay = {
-		token: function(stream) {
-			var ch = stream.peek();
-			var word = "";
+	// Define the new mode
+	options.codeMirrorInstance.defineMode("spell-checker", function(config) {
+		// Load AFF/DIC data
+		if(!CodeMirrorSpellChecker.aff_loading) {
+			CodeMirrorSpellChecker.aff_loading = true;
+			var xhr_aff = new XMLHttpRequest();
+			xhr_aff.open("GET", "https://cdn.jsdelivr.net/codemirror.spell-checker/latest/en_US.aff", true);
+			xhr_aff.onload = function() {
+				if(xhr_aff.readyState === 4 && xhr_aff.status === 200) {
+					CodeMirrorSpellChecker.aff_data = xhr_aff.responseText;
+					CodeMirrorSpellChecker.num_loaded++;
 
-			if(rx_word.includes(ch)) {
-				stream.next();
+					if(CodeMirrorSpellChecker.num_loaded == 2) {
+						CodeMirrorSpellChecker.typo = new Typo("en_US", CodeMirrorSpellChecker.aff_data, CodeMirrorSpellChecker.dic_data, {
+							platform: "any"
+						});
+					}
+				}
+			};
+			xhr_aff.send(null);
+		}
+
+		if(!CodeMirrorSpellChecker.dic_loading) {
+			CodeMirrorSpellChecker.dic_loading = true;
+			var xhr_dic = new XMLHttpRequest();
+			xhr_dic.open("GET", "https://cdn.jsdelivr.net/codemirror.spell-checker/latest/en_US.dic", true);
+			xhr_dic.onload = function() {
+				if(xhr_dic.readyState === 4 && xhr_dic.status === 200) {
+					CodeMirrorSpellChecker.dic_data = xhr_dic.responseText;
+					CodeMirrorSpellChecker.num_loaded++;
+
+					if(CodeMirrorSpellChecker.num_loaded == 2) {
+						CodeMirrorSpellChecker.typo = new Typo("en_US", CodeMirrorSpellChecker.aff_data, CodeMirrorSpellChecker.dic_data, {
+							platform: "any"
+						});
+					}
+				}
+			};
+			xhr_dic.send(null);
+		}
+
+
+		// Define what separates a word
+		var rx_word = "!\"#$%&()*+,-./:;<=>?@[\\]^_`{|}~ ";
+
+
+		// Create the overlay and such
+		var overlay = {
+			token: function(stream) {
+				var ch = stream.peek();
+				var word = "";
+
+				if(rx_word.includes(ch)) {
+					stream.next();
+					return null;
+				}
+
+				while((ch = stream.peek()) != null && !rx_word.includes(ch)) {
+					word += ch;
+					stream.next();
+				}
+
+				if(CodeMirrorSpellChecker.typo && !CodeMirrorSpellChecker.typo.check(word))
+					return "spell-error"; // CSS class: cm-spell-error
+
 				return null;
 			}
+		};
 
-			while((ch = stream.peek()) != null && !rx_word.includes(ch)) {
-				word += ch;
-				stream.next();
-			}
+		var mode = options.codeMirrorInstance.getMode(
+			config, config.backdrop || "text/plain"
+		);
 
-			if(typo && !typo.check(word))
-				return "spell-error"; // CSS class: cm-spell-error
-
-			return null;
-		}
-	};
-
-	var mode = CodeMirror.getMode(
-		config, config.backdrop || "text/plain"
-	);
-
-	return CodeMirror.overlayMode(mode, overlay, true);
-});
-
-
-// Because some browsers don't support this functionality yet
-if(!String.prototype.includes) {
-	String.prototype.includes = function() {
-		"use strict";
-		return String.prototype.indexOf.apply(this, arguments) !== -1;
-	};
+		return options.codeMirrorInstance.overlayMode(mode, overlay, true);
+	});
 }
+
+
+// Initialize data globally to reduce memory consumption
+CodeMirrorSpellChecker.num_loaded = 0;
+CodeMirrorSpellChecker.aff_loading = false;
+CodeMirrorSpellChecker.dic_loading = false;
+CodeMirrorSpellChecker.aff_data = "";
+CodeMirrorSpellChecker.dic_data = "";
+CodeMirrorSpellChecker.typo;
+
+
+// Export
+module.exports = CodeMirrorSpellChecker;
 },{"typo-js":6}]},{},[7])(7)
 });
