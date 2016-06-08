@@ -48,7 +48,7 @@ function taskBrowserify(opts) {
 }
 
 gulp.task("browserify:debug", ["lint"], function() {
-	return taskBrowserify({debug:true, standalone:"codemirror-spell-checker"})
+	return taskBrowserify({debug:true, standalone:"CodeMirrorSpellChecker"})
 		.pipe(source("spell-checker.debug.js"))
 		.pipe(buffer())
 		.pipe(header(banner, {pkg: pkg}))
@@ -56,7 +56,7 @@ gulp.task("browserify:debug", ["lint"], function() {
 });
 
 gulp.task("browserify", ["lint"], function() {
-	return taskBrowserify({standalone:"codemirror-spell-checker"})
+	return taskBrowserify({standalone:"CodeMirrorSpellChecker"})
 		.pipe(source("spell-checker.js"))
 		.pipe(buffer())
 		.pipe(header(banner, {pkg: pkg}))

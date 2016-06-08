@@ -5,30 +5,37 @@ Spell checking so simple, you can set up in 60 seconds. It will highlight any mi
 
 ![Screenshot](http://i.imgur.com/7yb5Nne.png)
 
-## Quick start
-CodeMirror spell checker is available on [jsDelivr](http://www.jsdelivr.com/#!codemirror.spell-checker). *Please note, jsDelivr may take a few days to update to the latest release.*
+## Install
 
-```HTML
-<link rel="stylesheet" href="//cdn.jsdelivr.net/codemirror.spell-checker/latest/spell-checker.min.css">
-<script src="//cdn.jsdelivr.net/codemirror.spell-checker/latest/spell-checker.min.js"></script>
+Via [npm](https://www.npmjs.com/package/codemirror-spell-checker).
+```
+npm install codemirror-spell-checker --save
 ```
 
-Now load CodeMirror like normal. Set the mode to `"spell-checker"` and the backdrop mode to the appropriate mode. Be sure to load `overlay.min.js` if you don't already use it.
+Via [bower](https://www.bower.io).
+```
+bower install codemirror-spell-checker --save
+```
+
+Via [jsDelivr](https://www.jsdelivr.com/projects/codemirror.spell-checker). *Please note, jsDelivr may take a few days to update to the latest release.*
 
 ```HTML
-<script src="//cdnjs.cloudflare.com/ajax/libs/codemirror/5.4.0/codemirror.min.js"></script>
-<script src="//cdnjs.cloudflare.com/ajax/libs/codemirror/5.4.0/mode/markdown/markdown.min.js"></script>
-<script src="//cdnjs.cloudflare.com/ajax/libs/codemirror/5.4.0/addon/mode/overlay.min.js"></script>
-<script src="//cdnjs.cloudflare.com/ajax/libs/codemirror/5.4.0/mode/gfm/gfm.min.js"></script>
-<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/codemirror/5.4.0/codemirror.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/codemirror.spell-checker/latest/spell-checker.min.css">
+<script src="https://cdn.jsdelivr.net/codemirror.spell-checker/latest/spell-checker.min.js"></script>
+```
 
-<script>
+## Quick start
+Once CodeMirror is installed and loaded, first provide CodeMirror Spell Checker with the correct CodeMirror function. Then, just set the primary mode to `"spell-checker"` and the backdrop mode to your desired mode. Be sure to load/require `overlay.min.js` if you haven't already.
+
+```JS
+CodeMirrorSpellChecker({
+	codeMirrorInstance: CodeMirror,
+});
+
 CodeMirror.fromTextArea(document.getElementById("textarea"), {
 	mode: "spell-checker",
-	backdrop: "gfm",
-	lineNumbers: true,
+	backdrop: "gfm" // Your desired mode
 });
-</script>
 ```
 
 That's it!
