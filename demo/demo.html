@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>CodeMirrorSpellChecker Demo</title>
+    <link href="../dist/spell-checker.min.css" rel="stylesheet" />
+    <link href="../node_modules/codemirror/lib/codemirror.css" rel="stylesheet" />
+    <style>
+      .CodeMirror {
+        border: 1px solid black;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><code>codemirror-spell-checker demo</code></h1>
+    <textarea id="textarea">hello I am mispelled!
+
+The word CodeMirror isn't underlined because it's in the "ignores" list.
+Neither is NextStepWebs, isn't that naet?
+  </textarea>
+    <script src="../node_modules/codemirror/lib/codemirror.js"></script>
+    <script src="../node_modules/codemirror/addon/mode/overlay.js"></script>
+    <script src="../dist/spell-checker.min.js"></script>
+    <script>
+    CodeMirrorSpellChecker({
+      codeMirrorInstance: CodeMirror,
+      ignores: ['CodeMirror', 'NextStepWebs']
+    });
+
+    CodeMirror.fromTextArea(document.getElementById("textarea"), {
+      mode: "spell-checker",
+      backdrop: "gfm" // Your desired mode
+    });
+    </script>
+  </body>
+</html>
