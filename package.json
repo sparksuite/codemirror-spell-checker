@@ -29,7 +29,6 @@
   },
   "devDependencies": {
     "browserify": "*",
-    "codemirror": "^5.18.2",
     "debug": "*",
     "eslint": "*",
     "gulp": "*",
