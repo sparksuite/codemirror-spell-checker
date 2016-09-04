@@ -71,11 +71,13 @@ function CodeMirrorSpellChecker(options) {
 
 
 		// Define what separates a word
-		var ignores, rx_word = "!\"#$%&()*+,-./:;<=>?@[\\]^_`{|}~ ";
+		var rx_word = "!\"#$%&()*+,-./:;<=>?@[\\]^_`{|}~ ";
 
-		// Get array of ignored words
-		if(options.ignores && options.ignores instanceof Array) {
-			ignores = options.ignores || [];
+		// Get array of custom words
+		var customWords;
+		
+		if(options.customWords && options.customWords instanceof Array) {
+			customWords = options.customWords || [];
 		}
 
 		// Create the overlay and such
@@ -94,7 +96,7 @@ function CodeMirrorSpellChecker(options) {
 					stream.next();
 				}
 
-				if(CodeMirrorSpellChecker.typo && !CodeMirrorSpellChecker.typo.check(word) && !~ignores.indexOf(word))
+				if(CodeMirrorSpellChecker.typo && !CodeMirrorSpellChecker.typo.check(word) && !~customWords.indexOf(word))
 					return "spell-error"; // CSS class: cm-spell-error
 
 				return null;

@@ -48,3 +48,15 @@ You can customize the misspelled word appearance by updating the CSS. All misspe
 	/* Your styling here */
 }
 ```
+
+## Configuration
+
+- **customWords**: Custom array of words that will not be designated as misspelled. Defaults to an empty array.
+
+```JavaScript
+// Most options demonstrate the non-default behavior
+CodeMirrorSpellChecker({
+	codeMirrorInstance: CodeMirror,
+	customWords: ["CodeMirror", "GitHub"],
+});
+```
