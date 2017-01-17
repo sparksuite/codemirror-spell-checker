@@ -1,6 +1,8 @@
 # CodeMirror Spell Checker
 Spell checking so simple, you can set up in 60 seconds. It will highlight any misspelled words in light red. Works great in conjunction with other CodeMirror modes, like GitHub Flavored Markdown.
 
+TEST
+
 [Demo](http://nextstepwebs.github.io/codemirror-spell-checker/)
 
 ![Screenshot](http://i.imgur.com/7yb5Nne.png)
