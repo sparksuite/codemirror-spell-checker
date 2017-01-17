@@ -71,28 +71,19 @@ function CodeMirrorSpellChecker(options) {
 
 
 		// Define what separates a word
-		var rx_word = "!\"#$%&()*+,-./:;<=>?@[\\]^_`{|}~ ";
+		var rx_word = /^[^!\"#$%&()*+,\-./:;<=>?@\[\\\]^_`{|}~\s]+/;
 
 
 		// Create the overlay and such
 		var overlay = {
 			token: function(stream) {
-				var ch = stream.peek();
-				var word = "";
-
-				if(rx_word.includes(ch)) {
-					stream.next();
-					return null;
+				var word = stream.match(rx_word, true);
+				if(word) {
+					if(CodeMirrorSpellChecker.typo && !CodeMirrorSpellChecker.typo.check(word[0]))
+						return "spell-error"; // CSS class: cm-spell-error
+				} else {
+					stream.next(); // skip non-word character
 				}
-
-				while((ch = stream.peek()) != null && !rx_word.includes(ch)) {
-					word += ch;
-					stream.next();
-				}
-
-				if(CodeMirrorSpellChecker.typo && !CodeMirrorSpellChecker.typo.check(word))
-					return "spell-error"; // CSS class: cm-spell-error
-
 				return null;
 			}
 		};
