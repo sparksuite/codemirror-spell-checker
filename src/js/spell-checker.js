@@ -90,7 +90,7 @@ function CodeMirrorSpellChecker(options) {
 				var word = stream.match(rx_word, true);
 				if(word) {
 					word = word[0]; // regex match body
-					if(!word.match(rx_ignore) && CodeMirrorSpellChecker.typo && !CodeMirrorSpellChecker.typo.check(word))
+					if(!word.match(rx_ignore) && CodeMirrorSpellChecker.typo && !CodeMirrorSpellChecker.typo.check(word) && !~customWords.indexOf(word))
 						return "spell-error"; // CSS class: cm-spell-error
 				} else {
 					stream.next(); // skip non-word character
