@@ -15,6 +15,7 @@
   ],
   "homepage": "https://github.com/NextStepWebs/codemirror-spell-checker",
   "main": "./src/js/spell-checker.js",
+  "jsdelivr": "dist/spell-checker.min.js",
   "license": "MIT",
   "company": "Next Step Webs, Inc.",
   "author": {

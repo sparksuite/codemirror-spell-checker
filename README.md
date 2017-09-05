@@ -17,11 +17,11 @@ Via [bower](https://www.bower.io).
 bower install codemirror-spell-checker --save
 ```
 
-Via [jsDelivr](https://www.jsdelivr.com/projects/codemirror.spell-checker). *Please note, jsDelivr may take a few days to update to the latest release.*
+Via [jsDelivr](https://www.jsdelivr.com/projects/codemirror.spell-checker).
 
 ```HTML
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/codemirror.spell-checker/latest/spell-checker.min.css">
-<script src="https://cdn.jsdelivr.net/codemirror.spell-checker/latest/spell-checker.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/codemirror-spell-checker@latest/dist/spell-checker.min.css">
+<script src="https://cdn.jsdelivr.net/npm/codemirror-spell-checker@latest/dist/spell-checker.min.js"></script>
 ```
 
 ## Quick start
