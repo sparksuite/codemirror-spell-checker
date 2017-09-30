@@ -80,6 +80,11 @@ function CodeMirrorSpellChecker(options) {
 				var ch = stream.peek();
 				var word = "";
 
+				var isCodeBlock = stream.lineOracle.state.base.overlay.codeBlock;
+				if (options.ignoreCodeBlocks && isCodeBlock) {
+					return null;
+				}
+
 				if(rx_word.includes(ch)) {
 					stream.next();
 					return null;
