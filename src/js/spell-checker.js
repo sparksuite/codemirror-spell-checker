@@ -82,6 +82,7 @@ function CodeMirrorSpellChecker(options) {
 
 				var isCodeBlock = stream.lineOracle.state.base.overlay.codeBlock;
 				if (options.ignoreCodeBlocks && isCodeBlock) {
+					stream.next();
 					return null;
 				}
 
