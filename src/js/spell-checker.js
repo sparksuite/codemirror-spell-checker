@@ -60,7 +60,7 @@ function CodeMirrorSpellChecker(options) {
 		if(!CodeMirrorSpellChecker.dic_loading) {
 			CodeMirrorSpellChecker.dic_loading = true;
 			var xhr_dic = new XMLHttpRequest();
-			var dicUrl
+			var dicUrl;
 			if(options.customDict===undefined){
 				dicUrl="https://cdn.jsdelivr.net/codemirror.spell-checker/latest/en_US.dic";
 			}
