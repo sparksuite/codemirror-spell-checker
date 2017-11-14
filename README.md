@@ -40,6 +40,24 @@ CodeMirror.fromTextArea(document.getElementById("textarea"), {
 
 That's it!
 
+## Other languages
+In order to use another language instead of `en_US` you just have to provide an additional piece of configuration:
+
+```JS
+CodeMirrorSpellChecker({
+	codeMirrorInstance: CodeMirror,
+	customDict: {
+		dic: "https://github.com/titoBouzout/Dictionaries/blob/master/Italian.dic",
+		aff: "https://github.com/titoBouzout/Dictionaries/blob/master/Italian.aff"
+	}
+});
+
+CodeMirror.fromTextArea(document.getElementById("textarea"), {
+	mode: "spell-checker",
+	backdrop: "gfm" // Your desired mode
+});
+```
+
 ## Customizing
 You can customize the misspelled word appearance by updating the CSS. All misspelled words will have the `.cm-spell-error` class.
 
