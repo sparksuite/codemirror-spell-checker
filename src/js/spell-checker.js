@@ -65,7 +65,7 @@ function CodeMirrorSpellChecker(options) {
 				dicUrl="https://cdn.jsdelivr.net/codemirror.spell-checker/latest/en_US.dic";
 			}
 			else{
-				affUrl=options.customDict.dic;
+				dicUrl=options.customDict.dic;
 			}
 			xhr_dic.open("GET", dicUrl, true);
 			xhr_dic.onload = function() {
