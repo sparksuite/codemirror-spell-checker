@@ -34,7 +34,14 @@ function CodeMirrorSpellChecker(options) {
 		if(!CodeMirrorSpellChecker.aff_loading) {
 			CodeMirrorSpellChecker.aff_loading = true;
 			var xhr_aff = new XMLHttpRequest();
-			xhr_aff.open("GET", "https://cdn.jsdelivr.net/codemirror.spell-checker/latest/en_US.aff", true);
+			var affUrl;
+			if(options.customDict===undefined){
+				affUrl="https://cdn.jsdelivr.net/codemirror.spell-checker/latest/en_US.aff";
+			}
+			else{
+				affUrl=options.customDict.aff;
+			}
+			xhr_aff.open("GET", affUrl, true);
 			xhr_aff.onload = function() {
 				if(xhr_aff.readyState === 4 && xhr_aff.status === 200) {
 					CodeMirrorSpellChecker.aff_data = xhr_aff.responseText;
@@ -53,7 +60,14 @@ function CodeMirrorSpellChecker(options) {
 		if(!CodeMirrorSpellChecker.dic_loading) {
 			CodeMirrorSpellChecker.dic_loading = true;
 			var xhr_dic = new XMLHttpRequest();
-			xhr_dic.open("GET", "https://cdn.jsdelivr.net/codemirror.spell-checker/latest/en_US.dic", true);
+			var dicUrl;
+			if(options.customDict===undefined){
+				dicUrl="https://cdn.jsdelivr.net/codemirror.spell-checker/latest/en_US.dic";
+			}
+			else{
+				dicUrl=options.customDict.dic;
+			}
+			xhr_dic.open("GET", dicUrl, true);
 			xhr_dic.onload = function() {
 				if(xhr_dic.readyState === 4 && xhr_dic.status === 200) {
 					CodeMirrorSpellChecker.dic_data = xhr_dic.responseText;
