@@ -31,7 +31,7 @@
     "browserify": "*",
     "debug": "*",
     "eslint": "*",
-    "gulp": "*",
+    "gulp": "3.9.1",
     "gulp-clean-css": "*",
     "gulp-concat": "*",
     "gulp-debug": "*",
