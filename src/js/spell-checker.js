@@ -78,10 +78,10 @@ function CodeMirrorSpellChecker(options) {
 
 
 		// Get array of custom words
-		var customWords;
+		var customWords = [];
 
 		if(options.customWords && options.customWords instanceof Array) {
-			customWords = options.customWords || [];
+			customWords = options.customWords;
 		}
 
 		// Create the overlay and such
