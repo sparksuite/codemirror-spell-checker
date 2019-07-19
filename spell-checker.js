@@ -27,7 +27,7 @@ function SpellChecker(CodeMirror) {
     throw new Error('You must provide a class of CodeMirror');
   }
 
-  CodeMirror.defineOption('spellCheckLang', 'en_US', async function (cm, newVal) {
+  CodeMirror.defineOption('spellCheckLang', undefined, async function (cm, newVal) {
     if (newVal) {
       try {
         CodeMirror.signal(cm, 'spell-checker:dictionary-loading', newVal);
@@ -35,10 +35,7 @@ function SpellChecker(CodeMirror) {
         CodeMirror.signal(cm, 'spell-checker:dictionary-loaded', newVal);
       } catch (e) {
         console.error('Failed to init Typo:', e);
-        CodeMirror.signal(cm, 'spell-checker:error', e); // Fall back to en_US
-
-        SpellChecker.typo = await initTypo('en_US');
-        cm.setOption('spellCheckLang', 'en_US');
+        CodeMirror.signal(cm, 'spell-checker:error', e);
       }
     }
   });
@@ -79,10 +76,6 @@ function SpellChecker(CodeMirror) {
     return CodeMirror.overlayMode(mode, overlay, true);
   });
 }
-
-initTypo('en_US').then(typo => {
-  SpellChecker.typo = typo;
-});
 
 async function initTypo(lang) {
   const data = await loadDictionary(lang);

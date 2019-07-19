@@ -15,7 +15,7 @@ export default function SpellChecker(CodeMirror) {
     throw new Error('You must provide a class of CodeMirror')
   }
 
-  CodeMirror.defineOption('spellCheckLang', 'en_US', async function(
+  CodeMirror.defineOption('spellCheckLang', undefined, async function(
     cm,
     newVal
   ) {
@@ -27,9 +27,6 @@ export default function SpellChecker(CodeMirror) {
       } catch (e) {
         console.error('Failed to init Typo:', e)
         CodeMirror.signal(cm, 'spell-checker:error', e)
-        // Fall back to en_US
-        SpellChecker.typo = await initTypo('en_US')
-        cm.setOption('spellCheckLang', 'en_US')
       }
     }
   })
@@ -73,10 +70,6 @@ export default function SpellChecker(CodeMirror) {
     return CodeMirror.overlayMode(mode, overlay, true)
   })
 }
-
-initTypo('en_US').then(typo => {
-  SpellChecker.typo = typo
-})
 
 export async function initTypo(lang) {
   const data = await loadDictionary(lang)
