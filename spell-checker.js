@@ -7,7 +7,7 @@ exports["default"] = SpellChecker;
 exports.initTypo = initTypo;
 exports.loadDictionary = loadDictionary;
 
-var _fetch = _interopRequireDefault(require("fetch"));
+var _nodeFetch = _interopRequireDefault(require("node-fetch"));
 
 var _typoJs = _interopRequireDefault(require("typo-js"));
 
@@ -19,7 +19,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "d
 
 const dataDir = _path["default"].join(__dirname, 'data');
 
-const baseDicUrl = 'https://github.com/titoBouzout/Dictionaries/blob/master/';
+const baseDicUrl = 'https://github.com/titoBouzout/Dictionaries/raw/master/';
 
 function SpellChecker(CodeMirror) {
   // Verify
@@ -30,9 +30,13 @@ function SpellChecker(CodeMirror) {
   CodeMirror.defineOption('spellCheckLang', 'en_US', async function (cm, newVal) {
     if (newVal) {
       try {
+        CodeMirror.signal(cm, 'spell-checker:dictionary-loading', newVal);
         SpellChecker.typo = await initTypo(newVal);
+        CodeMirror.signal(cm, 'spell-checker:dictionary-loaded', newVal);
       } catch (e) {
         console.error('Failed to init Typo:', e);
+        CodeMirror.signal(cm, 'spell-checker:error', e); // Fall back to en_US
+
         SpellChecker.typo = await initTypo('en_US');
         cm.setOption('spellCheckLang', 'en_US');
       }
@@ -46,9 +50,12 @@ function SpellChecker(CodeMirror) {
       token: function (stream) {
         var ch = stream.peek();
         var word = '';
-        var isCodeBlock = stream.lineOracle.state.base.overlay.codeBlock;
+        const {
+          base
+        } = stream.lineOracle.state;
+        const ignore = base.codeblock || base.indentedCode || base.code === 1;
 
-        if (options.ignoreCodeBlocks && isCodeBlock) {
+        if (ignore) {
           stream.next();
           return null;
         }
@@ -91,23 +98,25 @@ async function loadDictionary(lang) {
 
   const data = {};
 
-  if (_fs["default"].existsSync(affPath)) {
+  if (!_fs["default"].existsSync(affPath)) {
     const url = `${baseDicUrl}/${lang}.aff`;
-    const res = await (0, _fetch["default"])(url);
-    data.aff = res.text();
+    const res = await (0, _nodeFetch["default"])(url);
+    data.aff = await res.text();
 
     _fs["default"].writeFileSync(affPath, data.aff);
   } else {
     data.aff = _fs["default"].readFileSync(affPath, 'utf-8');
   }
 
-  if (_fs["default"].existsSync(dicPath)) {
+  if (!_fs["default"].existsSync(dicPath)) {
     const url = `${baseDicUrl}/${lang}.dic`;
-    const res = await (0, _fetch["default"])(url);
-    data.dic = res.text();
+    const res = await (0, _nodeFetch["default"])(url);
+    data.dic = await res.text();
 
     _fs["default"].writeFileSync(dicPath, data.dic);
   } else {
     data.dic = _fs["default"].readFileSync(dicPath, 'utf-8');
   }
+
+  return data;
 }

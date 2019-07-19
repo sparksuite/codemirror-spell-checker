@@ -1,10 +1,10 @@
-import fetch from 'fetch'
+import fetch from 'node-fetch'
 import Typo from 'typo-js'
 import fs from 'fs'
 import path from 'path'
 
 const dataDir = path.join(__dirname, 'data')
-const baseDicUrl = 'https://github.com/titoBouzout/Dictionaries/blob/master/'
+const baseDicUrl = 'https://github.com/titoBouzout/Dictionaries/raw/master/'
 
 export default function SpellChecker(CodeMirror) {
   // Verify
@@ -21,9 +21,13 @@ export default function SpellChecker(CodeMirror) {
   ) {
     if (newVal) {
       try {
+        CodeMirror.signal(cm, 'spell-checker:dictionary-loading', newVal)
         SpellChecker.typo = await initTypo(newVal)
+        CodeMirror.signal(cm, 'spell-checker:dictionary-loaded', newVal)
       } catch (e) {
         console.error('Failed to init Typo:', e)
+        CodeMirror.signal(cm, 'spell-checker:error', e)
+        // Fall back to en_US
         SpellChecker.typo = await initTypo('en_US')
         cm.setOption('spellCheckLang', 'en_US')
       }
@@ -40,8 +44,9 @@ export default function SpellChecker(CodeMirror) {
         var ch = stream.peek()
         var word = ''
 
-        var isCodeBlock = stream.lineOracle.state.base.overlay.codeBlock
-        if (options.ignoreCodeBlocks && isCodeBlock) {
+        const { base } = stream.lineOracle.state
+        const ignore = base.codeblock || base.indentedCode || base.code === 1
+        if (ignore) {
           stream.next()
           return null
         }
@@ -86,21 +91,23 @@ export async function loadDictionary(lang) {
   const dicPath = path.join(dataDir, `${lang}.dic`)
   const data = {}
 
-  if (fs.existsSync(affPath)) {
+  if (!fs.existsSync(affPath)) {
     const url = `${baseDicUrl}/${lang}.aff`
     const res = await fetch(url)
-    data.aff = res.text()
+    data.aff = await res.text()
     fs.writeFileSync(affPath, data.aff)
   } else {
     data.aff = fs.readFileSync(affPath, 'utf-8')
   }
 
-  if (fs.existsSync(dicPath)) {
+  if (!fs.existsSync(dicPath)) {
     const url = `${baseDicUrl}/${lang}.dic`
     const res = await fetch(url)
-    data.dic = res.text()
+    data.dic = await res.text()
     fs.writeFileSync(dicPath, data.dic)
   } else {
     data.dic = fs.readFileSync(dicPath, 'utf-8')
   }
+
+  return data
 }
