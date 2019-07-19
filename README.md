@@ -38,6 +38,7 @@ That's it!
 
 ## Other languages
 
+Some languages are tested and bundled in [the data directory](/inkdropapp/codemirror-spell-checker/tree/master/data).
 It supports other languages by downloading the dictionary files from [titoBouzout/Dictionaries](https://github.com/titoBouzout/Dictionaries).
 In order to use another language instead of `en_US` you just have to provide a language name listed in the above repository like so:
 
@@ -45,7 +46,7 @@ In order to use another language instead of `en_US` you just have to provide a l
 CodeMirror.fromTextArea(document.getElementById("textarea"), {
   mode: "spell-checker",
   backdrop: "gfm",
-  spellCheckLang: "Italian"
+  spellCheckLang: "en_AU"
 });
 ```
 
