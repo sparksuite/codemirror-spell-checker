@@ -15,7 +15,9 @@
   },
   "scripts": {
     "build": "babel src/ -d .",
-    "dev": "babel src/ -s -d . --watch"
+    "dev": "babel src/ -s -d . --watch",
+    "test": "eslint src/spell-checker.js",
+    "prepublishOnly": "npm t && npm run build"
   },
   "dependencies": {
     "node-fetch": "^2.6.0",
