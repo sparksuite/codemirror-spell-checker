@@ -42,8 +42,13 @@ export default function SpellChecker(CodeMirror) {
         var ch = stream.peek()
         var word = ''
 
-        const { base } = stream.lineOracle.state
-        const ignore = base.codeblock || base.indentedCode || base.code === 1
+        const { base, baseCur } = stream.lineOracle.state
+        const ignore =
+          base.codeblock ||
+          base.indentedCode ||
+          base.code === 1 ||
+          (typeof baseCur === 'string' &&
+            (baseCur.indexOf('url') >= 0 || baseCur.indexOf('string') >= 0))
         if (ignore) {
           stream.next()
           return null
