@@ -39,25 +39,27 @@ export default function SpellChecker(CodeMirror) {
     // Create the overlay and such
     const overlay = {
       token: function(stream) {
-        var ch = stream.peek()
+        var ch
         var word = ''
+        var ignore = false
+        var state = stream.lineOracle.state
 
-        const { base, baseCur } = stream.lineOracle.state
-        const ignore =
-          base.codeblock ||
-          base.indentedCode ||
-          base.code === 1 ||
-          (typeof baseCur === 'string' &&
-            (baseCur.indexOf('url') >= 0 || baseCur.indexOf('string') >= 0))
-        if (ignore) {
+        while (
+          (ch = stream.peek()) != null &&
+          (state.base.codeblock ||
+            state.base.indentedCode ||
+            state.base.code === 1 ||
+            (typeof state.baseCur === 'string' &&
+              (state.baseCur.indexOf('url') >= 0 ||
+                state.baseCur.indexOf('string') >= 0)) ||
+            rx_word.includes(ch) ||
+            nonASCIISingleCaseWordChar.test(ch))
+        ) {
+          ignore = true
           stream.next()
-          return null
+          state = stream.lineOracle.state
         }
-
-        if (rx_word.includes(ch) || nonASCIISingleCaseWordChar.test(ch)) {
-          stream.next()
-          return null
-        }
+        if (ignore) return null
 
         while (
           (ch = stream.peek()) != null &&
