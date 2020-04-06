@@ -19,7 +19,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "d
 
 const dataDir = _path["default"].join(__dirname, 'data');
 
-const baseDicUrl = 'https://github.com/titoBouzout/Dictionaries/raw/master/';
+const baseDicUrl = 'https://raw.githubusercontent.com/titoBouzout/Dictionaries/master/';
 
 function SpellChecker(CodeMirror) {
   // Verify

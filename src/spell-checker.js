@@ -4,7 +4,8 @@ import fs from 'fs'
 import path from 'path'
 
 const dataDir = path.join(__dirname, 'data')
-const baseDicUrl = 'https://github.com/titoBouzout/Dictionaries/raw/master/'
+const baseDicUrl =
+  'https://raw.githubusercontent.com/titoBouzout/Dictionaries/master/'
 
 export default function SpellChecker(CodeMirror) {
   // Verify
