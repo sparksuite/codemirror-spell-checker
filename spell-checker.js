@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports["default"] = SpellChecker;
+exports.default = SpellChecker;
 exports.initTypo = initTypo;
 exports.loadDictionary = loadDictionary;
 
@@ -15,9 +15,9 @@ var _fs = _interopRequireDefault(require("fs"));
 
 var _path = _interopRequireDefault(require("path"));
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-const dataDir = _path["default"].join(__dirname, 'data');
+const dataDir = _path.default.join(__dirname, 'data');
 
 const baseDicUrl = 'https://raw.githubusercontent.com/titoBouzout/Dictionaries/master/';
 
@@ -51,7 +51,7 @@ function SpellChecker(CodeMirror) {
         var ignore = false;
         var state = stream.lineOracle.state;
 
-        while ((ch = stream.peek()) != null && (state.base.codeblock || state.base.indentedCode || state.base.code === 1 || typeof state.baseCur === 'string' && (state.baseCur.indexOf('url') >= 0 || state.baseCur.indexOf('string') >= 0) || rx_word.includes(ch) || nonASCIISingleCaseWordChar.test(ch))) {
+        while ((ch = stream.peek()) != null && (rx_word.includes(ch) || nonASCIISingleCaseWordChar.test(ch))) {
           ignore = true;
           stream.next();
           state = stream.lineOracle.state;
@@ -62,6 +62,11 @@ function SpellChecker(CodeMirror) {
         while ((ch = stream.peek()) != null && !rx_word.includes(ch) && !nonASCIISingleCaseWordChar.test(ch)) {
           word += ch;
           stream.next();
+          state = stream.lineOracle.state;
+
+          if (state.base.codeblock || state.base.indentedCode || state.base.code === 1 || typeof state.baseCur === 'string' && (state.baseCur.indexOf('url') >= 0 || state.baseCur.indexOf('string') >= 0)) {
+            return null;
+          }
         }
 
         if (SpellChecker.typo && !SpellChecker.typo.check(word)) return 'spell-error'; // CSS class: cm-spell-error
@@ -76,36 +81,36 @@ function SpellChecker(CodeMirror) {
 
 async function initTypo(lang) {
   const data = await loadDictionary(lang);
-  return new _typoJs["default"](lang, data.aff, data.dic, {
+  return new _typoJs.default(lang, data.aff, data.dic, {
     platform: 'any'
   });
 }
 
 async function loadDictionary(lang) {
-  const affPath = _path["default"].join(dataDir, `${lang}.aff`);
+  const affPath = _path.default.join(dataDir, `${lang}.aff`);
 
-  const dicPath = _path["default"].join(dataDir, `${lang}.dic`);
+  const dicPath = _path.default.join(dataDir, `${lang}.dic`);
 
   const data = {};
 
-  if (!_fs["default"].existsSync(affPath)) {
+  if (!_fs.default.existsSync(affPath)) {
     const url = `${baseDicUrl}/${lang}.aff`;
-    const res = await (0, _nodeFetch["default"])(url);
+    const res = await (0, _nodeFetch.default)(url);
     data.aff = await res.text();
 
-    _fs["default"].writeFileSync(affPath, data.aff);
+    _fs.default.writeFileSync(affPath, data.aff);
   } else {
-    data.aff = _fs["default"].readFileSync(affPath, 'utf-8');
+    data.aff = _fs.default.readFileSync(affPath, 'utf-8');
   }
 
-  if (!_fs["default"].existsSync(dicPath)) {
+  if (!_fs.default.existsSync(dicPath)) {
     const url = `${baseDicUrl}/${lang}.dic`;
-    const res = await (0, _nodeFetch["default"])(url);
+    const res = await (0, _nodeFetch.default)(url);
     data.dic = await res.text();
 
-    _fs["default"].writeFileSync(dicPath, data.dic);
+    _fs.default.writeFileSync(dicPath, data.dic);
   } else {
-    data.dic = _fs["default"].readFileSync(dicPath, 'utf-8');
+    data.dic = _fs.default.readFileSync(dicPath, 'utf-8');
   }
 
   return data;

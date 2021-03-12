@@ -16,21 +16,22 @@ export default function SpellChecker(CodeMirror) {
     throw new Error('You must provide a class of CodeMirror')
   }
 
-  CodeMirror.defineOption('spellCheckLang', undefined, async function (
-    cm,
-    newVal
-  ) {
-    if (newVal) {
-      try {
-        CodeMirror.signal(cm, 'spell-checker:dictionary-loading', newVal)
-        SpellChecker.typo = await initTypo(newVal)
-        CodeMirror.signal(cm, 'spell-checker:dictionary-loaded', newVal)
-      } catch (e) {
-        console.error('Failed to init Typo:', e)
-        CodeMirror.signal(cm, 'spell-checker:error', e)
+  CodeMirror.defineOption(
+    'spellCheckLang',
+    undefined,
+    async function (cm, newVal) {
+      if (newVal) {
+        try {
+          CodeMirror.signal(cm, 'spell-checker:dictionary-loading', newVal)
+          SpellChecker.typo = await initTypo(newVal)
+          CodeMirror.signal(cm, 'spell-checker:dictionary-loaded', newVal)
+        } catch (e) {
+          console.error('Failed to init Typo:', e)
+          CodeMirror.signal(cm, 'spell-checker:error', e)
+        }
       }
     }
-  })
+  )
 
   CodeMirror.defineMode('spell-checker', function (config) {
     // Define what separates a word
@@ -47,14 +48,7 @@ export default function SpellChecker(CodeMirror) {
 
         while (
           (ch = stream.peek()) != null &&
-          (state.base.codeblock ||
-            state.base.indentedCode ||
-            state.base.code === 1 ||
-            (typeof state.baseCur === 'string' &&
-              (state.baseCur.indexOf('url') >= 0 ||
-                state.baseCur.indexOf('string') >= 0)) ||
-            rx_word.includes(ch) ||
-            nonASCIISingleCaseWordChar.test(ch))
+          (rx_word.includes(ch) || nonASCIISingleCaseWordChar.test(ch))
         ) {
           ignore = true
           stream.next()
@@ -69,6 +63,17 @@ export default function SpellChecker(CodeMirror) {
         ) {
           word += ch
           stream.next()
+          state = stream.lineOracle.state
+          if (
+            state.base.codeblock ||
+            state.base.indentedCode ||
+            state.base.code === 1 ||
+            (typeof state.baseCur === 'string' &&
+              (state.baseCur.indexOf('url') >= 0 ||
+                state.baseCur.indexOf('string') >= 0))
+          ) {
+            return null
+          }
         }
 
         if (SpellChecker.typo && !SpellChecker.typo.check(word))
