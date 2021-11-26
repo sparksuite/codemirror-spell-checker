@@ -11,7 +11,7 @@
   "license": "MIT",
   "author": {
     "name": "Takuya Matsuyama",
-    "url": "https://craftz.dog/"
+    "url": "https://www.craftz.dog/"
   },
   "scripts": {
     "build": "babel src/ -d .",
@@ -24,15 +24,14 @@
     "typo-js": "^1.2.0"
   },
   "devDependencies": {
-    "@babel/cli": "^7.13.10",
-    "@babel/core": "^7.13.10",
-    "@babel/plugin-proposal-class-properties": "^7.13.0",
-    "@babel/preset-env": "^7.13.10",
-    "babel-eslint": "^10.1.0",
-    "eslint": "^7.21.0",
-    "eslint-config-prettier": "^8.1.0",
-    "eslint-plugin-prettier": "^3.3.1",
-    "prettier": "^2.2.1"
+    "@babel/cli": "^7.16.0",
+    "@babel/core": "^7.16.0",
+    "@babel/eslint-parser": "^7.16.3",
+    "@babel/plugin-proposal-class-properties": "^7.16.0",
+    "@babel/preset-env": "^7.16.4",
+    "eslint": "^8.3.0",
+    "eslint-config-prettier": "^8.3.0",
+    "prettier": "^2.5.0"
   },
   "keywords": [
     "inkdrop",
