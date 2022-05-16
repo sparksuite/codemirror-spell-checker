@@ -1,3 +1,5 @@
 .CodeMirror .cm-spell-error:not(.cm-url):not(.cm-comment):not(.cm-tag):not(.cm-word) {
-    background: rgba(255, 0, 0, .15);
+    text-decoration-color: red;
+    text-decoration-line: underline;
+    text-decoration-style: wavy;
 }
