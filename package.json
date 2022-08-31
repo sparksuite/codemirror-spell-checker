@@ -20,8 +20,8 @@
     "prepublishOnly": "npm t && npm run build"
   },
   "dependencies": {
-    "node-fetch": "^2.6.6",
-    "typo-js": "^1.2.1"
+    "node-fetch": "^2.6.7",
+    "typo-js": "^1.2.2"
   },
   "devDependencies": {
     "@babel/cli": "^7.16.0",
