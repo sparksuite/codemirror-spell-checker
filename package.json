@@ -1,6 +1,6 @@
 {
   "name": "@inkdropapp/codemirror-spell-checker",
-  "version": "1.1.2",
+  "version": "1.1.3",
   "description": "Spell checking in CodeMirror.",
   "homepage": "https://github.com/inkdropapp/codemirror-spell-checker",
   "repository": {
