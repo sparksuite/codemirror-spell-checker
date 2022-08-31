@@ -24,14 +24,14 @@
     "typo-js": "^1.2.2"
   },
   "devDependencies": {
-    "@babel/cli": "^7.16.0",
-    "@babel/core": "^7.16.0",
-    "@babel/eslint-parser": "^7.16.3",
-    "@babel/plugin-proposal-class-properties": "^7.16.0",
-    "@babel/preset-env": "^7.16.4",
-    "eslint": "^8.3.0",
-    "eslint-config-prettier": "^8.3.0",
-    "prettier": "^2.5.0"
+    "@babel/cli": "^7.18.10",
+    "@babel/core": "^7.18.13",
+    "@babel/eslint-parser": "^7.18.9",
+    "@babel/plugin-proposal-class-properties": "^7.18.6",
+    "@babel/preset-env": "^7.18.10",
+    "eslint": "^8.23.0",
+    "eslint-config-prettier": "^8.5.0",
+    "prettier": "^2.7.1"
   },
   "keywords": [
     "inkdrop",
