@@ -36,7 +36,8 @@ export default function SpellChecker(CodeMirror) {
   CodeMirror.defineMode('spell-checker', function (config) {
     // Define what separates a word
     const rx_word = '!"#$%&()*+,-./:;<=>?@[\\]^_`{|}~ '
-    const nonASCIISingleCaseWordChar = /[\u00df\u0587\u0590-\u05f4\u0600-\u06ff\u3040-\u309f\u30a0-\u30ff\u3400-\u4db5\u4e00-\u9fcc\uac00-\ud7af　-ー]/
+    const nonASCIISingleCaseWordChar =
+      /[\u00df\u0587\u0590-\u05f4\u0600-\u06ff\u3040-\u309f\u30a0-\u30ff\u3400-\u4db5\u4e00-\u9fcc\uac00-\ud7af　-ー]/
 
     // Create the overlay and such
     const overlay = {
@@ -76,7 +77,11 @@ export default function SpellChecker(CodeMirror) {
           }
         }
 
-        if (SpellChecker.typo && !SpellChecker.typo.check(word))
+        if (
+          SpellChecker.typo &&
+          word.length > 0 &&
+          !SpellChecker.typo.check(word)
+        )
           return 'spell-error' // CSS class: cm-spell-error
 
         return null
