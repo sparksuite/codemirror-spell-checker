@@ -69,7 +69,7 @@ function SpellChecker(CodeMirror) {
           }
         }
 
-        if (SpellChecker.typo && !SpellChecker.typo.check(word)) return 'spell-error'; // CSS class: cm-spell-error
+        if (SpellChecker.typo && word.length > 0 && !SpellChecker.typo.check(word)) return 'spell-error'; // CSS class: cm-spell-error
 
         return null;
       }
