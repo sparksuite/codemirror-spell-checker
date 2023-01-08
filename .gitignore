@@ -1,2 +1,3 @@
 localtesting/*
+*.map
 node_modules/

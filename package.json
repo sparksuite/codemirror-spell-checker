@@ -1,8 +1,40 @@
 {
-  "name": "codemirror-spell-checker",
-  "version": "1.1.2",
-  "description": "Dead-simple spell checking in CodeMirror.",
+  "name": "@inkdropapp/codemirror-spell-checker",
+  "version": "1.2.0",
+  "description": "Spell checking in CodeMirror.",
+  "homepage": "https://github.com/inkdropapp/codemirror-spell-checker",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/inkdropapp/codemirror-spell-checker"
+  },
+  "main": "./spell-checker.js",
+  "license": "MIT",
+  "author": {
+    "name": "Takuya Matsuyama",
+    "url": "https://www.craftz.dog/"
+  },
+  "scripts": {
+    "build": "babel src/ -d .",
+    "dev": "babel src/ -s -d . --watch",
+    "test": "eslint src/spell-checker.js",
+    "prepublishOnly": "npm t && npm run build"
+  },
+  "dependencies": {
+    "node-fetch": "^2.6.7",
+    "typo-js": "^1.2.2"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.18.10",
+    "@babel/core": "^7.18.13",
+    "@babel/eslint-parser": "^7.18.9",
+    "@babel/plugin-proposal-class-properties": "^7.18.6",
+    "@babel/preset-env": "^7.18.10",
+    "eslint": "^8.23.0",
+    "eslint-config-prettier": "^8.5.0",
+    "prettier": "^2.7.1"
+  },
   "keywords": [
+    "inkdrop",
     "codemirror",
     "code",
     "mirror",
@@ -12,39 +44,5 @@
     "spellchecker",
     "spellchecking",
     "javascript"
-  ],
-  "homepage": "https://github.com/NextStepWebs/codemirror-spell-checker",
-  "main": "./src/js/spell-checker.js",
-  "license": "MIT",
-  "company": "Next Step Webs, Inc.",
-  "author": {
-    "name": "Wes Cossick",
-    "url": "http://www.WesCossick.com"
-  },
-  "bugs": {
-    "url": "https://github.com/NextStepWebs/codemirror-spell-checker/issues"
-  },
-  "dependencies": {
-    "typo-js": "*"
-  },
-  "devDependencies": {
-    "browserify": "*",
-    "debug": "*",
-    "eslint": "*",
-    "gulp": "*",
-    "gulp-concat": "*",
-    "gulp-debug": "*",
-    "gulp-eslint": "*",
-    "gulp-header": "*",
-    "gulp-jsbeautifier": "*",
-    "gulp-clean-css": "*",
-    "gulp-rename": "*",
-    "gulp-uglify": "*",
-    "vinyl-source-stream": "*",
-    "vinyl-buffer": "*"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/NextStepWebs/codemirror-spell-checker"
-  }
+  ]
 }
